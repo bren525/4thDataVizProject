@@ -1,4 +1,4 @@
-function viz_lib_import () {
+function get_viz_lib () {
 	var viz_lib = {};
 
 	viz_lib.table = function (svg, startX, startY, width, height, data, columns) {
@@ -38,7 +38,7 @@ function viz_lib_import () {
 	            .html(function(d) { return d.value; });
 	    
 	    return table;
-	}
+	};
 
 	viz_lib.bar_graph = function (svg, startX, startY, width, height, data, colors, margin) {
 		var bars = data.values;
