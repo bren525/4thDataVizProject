@@ -1,0 +1,1 @@
+Run our python server using `python server.py`, then navigate to http://localhost/ and see our vizzes!
