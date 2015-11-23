@@ -1,8 +1,9 @@
-function get_viz_lib () {
+var viz_lib = (function() {
 	var viz_lib = {};
 
-	viz_lib.table = function (svg, startX, startY, width, height, data, columns) {
+	viz_lib.table = function (svg, startX, startY, width, height, data) {
 		//make table
+		var columns = data.columns;
 	    var table = d3.select("#"+svg).append("table")
 	    	.attr("x", startX)
 	    	.attr("y", startY)
@@ -117,4 +118,4 @@ function get_viz_lib () {
 	};
 
 	return viz_lib;
-}
+})();
