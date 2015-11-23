@@ -51,5 +51,9 @@ function isIncluded(row) {
 }
 
 function filterCause(element) {
-
+	if (GLOBAL.filters.cause == element.label){
+		GLOBAL.filters.cause = null
+	} else {
+		GLOBAL.filters.cause = element.label
+	}
 }
