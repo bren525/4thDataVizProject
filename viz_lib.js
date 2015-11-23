@@ -67,7 +67,7 @@ var viz_lib = (function() {
 		graph.selectAll("g").append("text")
 			.text(function(d) {return d.label;})
 			.attr("fontsize",15)
-			.attr("x", function(d, i) {return startX + (i + .5) * (barWidth + barMargin);})
+			.attr("x", function(d, i) {return (startX + (i + .5) * (barWidth + barMargin)) - barMargin/2;})
 			.attr("y", startY + height + 15 )
 			.style("text-anchor", "middle");
 
@@ -112,7 +112,7 @@ var viz_lib = (function() {
 				.append("text")
 					.attr("font-size", "18px")
 					.style("text-anchor", "middle")
-					.attr("transform", "translate(" + (startX - 50) + ", " + (startY + height / 2) + ")rotate(-90)")
+					.attr("transform", "translate(" + (startX - 70) + ", " + (startY + height / 2) + ")rotate(-90)")
 					.text(data.ylabel);
 		return graph;
 	};
