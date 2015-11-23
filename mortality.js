@@ -8,7 +8,13 @@ window.addEventListener("load", run);
 
 function run () {
 	var svg = "svg";
-	draw(svg);
+	$.get("/data", function(err, data) {
+		if (err) {
+			console.log(err)
+		}
+		GLOBAL.data = data;
+		draw(svg);
+	})
 }
 
 function draw (svg) {
