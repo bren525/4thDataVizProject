@@ -8,10 +8,7 @@ window.addEventListener("load", run);
 
 function run () {
 	var svg = "svg";
-	$.get("/data", function(err, data) {
-		if (err) {
-			console.log(err)
-		}
+	$.get("/data", function(data) {
 		GLOBAL.data = data;
 		draw(svg);
 	})
