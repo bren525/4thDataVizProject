@@ -7,10 +7,10 @@ GLOBAL.filters = {
 window.addEventListener("load", run);
 
 function run () {
-	var svg = "svg";
+	GLOBAL.svg = "svg";
 	$.get("http://localhost:8080/data", function(data) {
 		GLOBAL.data = JSON.parse(data);
-		draw(svg);
+		draw(GLOBAL.svg);
 	})
 }
 
@@ -18,38 +18,38 @@ function draw (svg) {
 	d3.select("#"+svg).selectAll("g").remove();
 
 	var cause_data = getCauseData();
-	var colors = [];
-	for (var i in cause_data) {
+	var causeColors = [];
+	for (var i in cause_data.values) {
 		if (GLOBAL.filters.cause != null && GLOBAL.filters.cause != cause_data[i]) {
-			colors.push("#7ec0ee");
+			causeColors.push("#7ec0ee");
 		} else {
-			colors.push("blue");
+			causeColors.push("blue");
 		}
 	}
-	var cause_breakdown = viz_lib.bar_graph(svg, 100, 100, 700, 400, cause_data, colors, .2);
+	var cause_breakdown = viz_lib.bar_graph(svg, 100, 100, 700, 400, cause_data, causeColors, .2);
 	cause_breakdown.selectAll("rect").on("click", filterCause);
 
 	var age_data = getAgeData();
-	var colors = [];
-	for (var i in age_data) {
+	var ageColors = [];
+	for (var i in age_data.values) {
 		if (GLOBAL.filters.age != null && GLOBAL.filters.age != age_data[i]) {
-			colors.push("#7ec0ee");
+			ageColors.push("#7ec0ee");
 		} else {
-			colors.push("blue");
+			ageColors.push("blue");
 		}
 	}
-	var age_breakdown = viz_lib.bar_graph(svg, 100, 600, 700, 400, age_data, colors, .2);
+	var age_breakdown = viz_lib.bar_graph(svg, 100, 600, 700, 400, age_data, ageColors, .2);
 
 	var year_data = getYearData();
-	var colors = [];
-	for (var i in year_data) {
+	var yearColors = [];
+	for (var i in year_data.values) {
 		if (GLOBAL.filters.year != null && GLOBAL.filters.year != year_data[i]) {
-			colors.push("#7ec0ee");
+			yearColors.push("#7ec0ee");
 		} else {
-			colors.push("blue");
+			yearColors.push("blue");
 		}
 	}
-	var year_breakdown = viz_lib.bar_graph(svg, 100, 1100, 700, 400, year_data, colors, .2);
+	var year_breakdown = viz_lib.bar_graph(svg, 100, 1100, 700, 400, year_data, yearColors, .2);
 }
 
 function getData(category) {
@@ -109,4 +109,5 @@ function filterCause(element) {
 	} else {
 		GLOBAL.filters.cause = element.label
 	}
+	draw(GLOBAL.svg);
 }
