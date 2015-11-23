@@ -60,8 +60,8 @@ var viz_lib = (function() {
 					.attr("x", function(d, i) {return startX + i * (barWidth + barMargin);})
 					.attr("y", function(d, i) {return startY + height - barScale * d.val;})
 					.attr("width", barWidth)
-					.attr("height", function(d, i) {return d.val;})
-					.style("fill", colors[i % colors.length]);
+					.attr("height", function(d, i) {return barScale*d.val;})
+					.style("fill", function(d, i) {return colors[i]});
 
 		//Make the text labels for the categories
 		graph.selectAll("g").append("text")
@@ -73,7 +73,7 @@ var viz_lib = (function() {
 
 		//Make the axis
 		var yAxis = d3.svg.axis()
-			.scale(d3.scale.linear().domain([0, 100]).range([100, 0]))
+			.scale(d3.scale.linear().domain([0, maxBar]).range([height, 0]))
 			.orient("left");
 		graph
 			.append("g")

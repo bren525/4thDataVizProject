@@ -8,8 +8,8 @@ window.addEventListener("load", run);
 
 function run () {
 	var svg = "svg";
-	$.get("/data", function(data) {
-		GLOBAL.data = data;
+	$.get("http://localhost:8080/data", function(data) {
+		GLOBAL.data = JSON.parse(data);
 		draw(svg);
 	})
 }
@@ -17,19 +17,20 @@ function run () {
 function draw (svg) {
 	d3.select("#"+svg).selectAll("g").remove();
 
-	var cause_data = get_cause_data();
-	var cause_breakdown = viz_lib.bar_graph(svg, 100, 100, 700, 400, cause_data, GLOBAL.colors, 0);
+	var cause_data = getCauseData();
+	var cause_breakdown = viz_lib.bar_graph(svg, 100, 100, 700, 400, cause_data, GLOBAL.colors, .2);
 	cause_breakdown.selectAll("rect").on("click", filterCause);
 }
 
-function get_cause_data() {
+function getCauseData() {
 	var data = {};
 	data.xlabel = "Cause of Death";
 	data.ylabel = "Number of Deceased";
 	data.title = "Number of Deaths per Cause of Death";
 	data.values = [];
-	values = {};
-	for (row in GLOBAL.data) {
+	var values = {};
+	for (i in GLOBAL.data) {
+		var row = GLOBAL.data[i]
 		if (isIncluded(row)) {
 			values[row.cause] = (values[row.cause] || 0) + row.count;
 		}
